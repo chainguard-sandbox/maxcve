@@ -6,14 +6,15 @@ on:
     branches: ['main']
   workflow_dispatch: {}
 
-permissions:
-  contents: read
-  id-token: write
-  packages: write
+permissions: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # clone the repository and read go modules
+      id-token: write # OIDC token for cosign keyless signing
+      packages: write # push the image to ghcr.io
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@20cf305ff2072d973412fa9b1e3a4f227bda3c76 # v2.14.0
